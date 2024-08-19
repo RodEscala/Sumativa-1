@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -20,9 +21,21 @@ public class PeliculaController {
         peliculas.add(new Pelicula(4, "Gladiator II", 2024, "Ridley Scott", "Drama, Acción", "Secuela del aclamado Gladiador, que sigue la historia de Lucius, el hijo de Lucilla, mientras navega por la política y la traición en Roma."));
     }
 
-    @GetMapping("/pelis")
+    @GetMapping("/peliculas")
     public List<Pelicula> getPelicula() {
+
         return peliculas;
+    }
+
+    @GetMapping("/peliculas/{id}")
+    public Pelicula getPeliculaById(@PathVariable int id){
+        for (Pelicula pelicula : peliculas) {
+            if(pelicula.getId() == id){
+                return pelicula;
+            }
+        }
+        // En caso de que el resultado no se encuentre
+        return null;
     }
     
 }
